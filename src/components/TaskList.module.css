@@ -1,4 +1,4 @@
-.task-list {
+.task_list {
     background-color: white;
     padding: 40px;
     border-radius: 8px;
@@ -7,7 +7,7 @@
     text-align: center;
   }
   
-  .input-section {
+  .input_section {
     display: flex;
     margin-bottom: 20px;
   }

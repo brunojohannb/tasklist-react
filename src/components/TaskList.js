@@ -1,50 +1,52 @@
 import React, { useState } from 'react';
 import Task from './Task';
-import './TaskList.css'
+import Styles from './TaskList.module.css';
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
 
-  // Função para adicionar nova tarefa
   const addTask = () => {
     if (newTask.trim()) {
-      setTasks([...tasks, { text: newTask, isCompleted: false }]);
-      setNewTask(''); // Limpa o campo de input
+      setTasks([...tasks, { id: Date.now(), text: newTask, isCompleted: false }]);
+      setNewTask(''); 
     }
   };
 
-  // Função para marcar tarefa como completa
-  const markTaskComplete = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index].isCompleted = !updatedTasks[index].isCompleted;
+  
+  const markTaskComplete = (id) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) {
+        return { ...task, isCompleted: !task.isCompleted };
+      }
+      return task;
+    });
     setTasks(updatedTasks);
   };
-
-  // Função para remover tarefa
-  const removeTask = (index) => {
-    const updatedTasks = tasks.filter((task, i) => i !== index);
+ 
+  const removeTask = (id) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
     setTasks(updatedTasks);
   };
 
   return (
-    <div className="task-list">
+    <div className={Styles.task_list}>
       <h1>Lista de Tarefas</h1>
-      <div className="input-section">
+      <div className={Styles.input_section}>
         <input
           type="text"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && addTask()}
           placeholder="Digite uma tarefa"
         />
         <button onClick={addTask}>Adicionar</button>
       </div>
-      <div className="tasks">
-        {tasks.map((task, index) => (
+      <div className={Styles.tasks}>
+        {tasks.map((task) => (
           <Task
-            key={index}
+            key={task.id}
             task={task}
-            index={index}
             markTaskComplete={markTaskComplete}
             removeTask={removeTask}
           />

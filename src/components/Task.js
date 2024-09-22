@@ -1,14 +1,16 @@
 import React from 'react';
-import './Task.css'
+import styles from './Task.module.css'; 
 
-function Task({ task, index, markTaskComplete, removeTask }) {
+function Task({ task, markTaskComplete, removeTask }) {
   return (
-    <div className={`task ${task.isCompleted ? 'completed' : ''}`}>
+    <div className={`${styles.task} ${task.isCompleted ? styles.completed : ''}`}>
       <span>{task.text}</span>
-      <div>
-        <button onClick={() => markTaskComplete(index)}>Completar</button>
-        <button onClick={() => removeTask(index)}>Remover</button>
-      </div>
+      <button className={styles.btncomplete} onClick={() => markTaskComplete(task.id)}>
+        Completar
+      </button>
+      <button className={styles.btnremove} onClick={() => removeTask(task.id)}>
+        Remover
+      </button>
     </div>
   );
 }
