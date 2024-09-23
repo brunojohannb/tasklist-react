@@ -31,7 +31,7 @@ function TaskList() {
 
   return (
     <div className={Styles.task_list}>
-      <h1>Lista de Tarefas</h1>
+      <h1 className={Styles.tftitle}>Lista de Tarefas</h1>
       <div className={Styles.input_section}>
         <input
           type="text"
